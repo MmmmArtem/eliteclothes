@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <h3 align="center">Добро пожаловать, {{ current_user.name }}!</h3>
+    {% endif %}
+    <p>
+    <table class="cat" align="center">
+        <tr>
+        {% for cat in cats %}
+            {% if cat.id == cat_id %}
+                <td bgcolor=yellow><a href="{{cat.id}}">{{cat.title}}</a></td>
+            {% else %}
+                <td bgcolor=silver><a href="{{cat.id}}">{{cat.title}}</a></td>
+            {% endif %}
+        {% endfor %}
+        </tr>
+    </table>
+    </p>
+    {% if current_user.name == "Админ" %}
+    <p>
+    <table class="cat" align="center">
+        <tr>
+            <td bgcolor=Red>
+                <a href="../delcat/{{cat_id}}">Удалить категорию</a>
+            </td>
+        </tr>
+    </table>
+    </p>
+    {% endif %}
+    <table class="prod" align="center">
+        {% for product in products %}
+            {% if product.index % 3 == 0 %}
+                <tr>
+            {% endif %}
+            {% if (product.title != 'none') or (product.index < 3) %}
+                <td>
+                    {% if product.title != 'none' %}
+                        <img src="data:;base64,{{ product.image }}" width="70%" alt="Фотография отсутствует"/>
+                        <table class="text">
+                            <tr>
+                                <td bgcolor=GreenYellow>{{ product.title }}, Цена: {{product.price }} руб</td>
+                                {% if current_user.name == "Админ" %}
+                                    <td bgcolor=Red>
+                                        <a href="../delprod/{{product.id}}">Удалить</a>
+                                    </td>
+                                {% else %}
+                                    <td >
+                                        {% if current_user.is_authenticated %}
+                                            <a href="../buy/{{product.id}}">Купить</a>
+                                        {% else %}
+                                            Купить
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        </table>
+                    {% endif %}
+                </td>
+            {% endif %}
+            {% if product.index % 3 == 2 %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}

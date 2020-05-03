@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <title>{{ title }}</title>
+    <style>
+        table.cat {width: 100%; height: 50; border-spacing: 10px; font-size: 15px; font-weight: bold;}
+        table.cat td {width: {{catw}}%; border: 1px solid blue; padding: 5px; text-align: center; vertical-align: middle; opacity: 1.0;}
+        table.cat td a {display: block; text-decoration:none;}
+        table.cat td:hover {background: yellow;}
+        table.prod {width: 100%; height: 80%; border-spacing: 10px;}
+        table.prod td {width: 33.33%; ; height: 50%; border: 1px solid gray; padding: 5px; text-align: center; vertical-align: bottom; opacity: 0.7;}
+        table.prod td a {display: block; text-decoration:none;}
+        table.prod td:hover {opacity: 1.0;}
+        table.text {width: 100%; height: 30; border-spacing: 5px 0px;}
+        table.text td {width: 75%; border: 1px solid gray; padding: 0px; vertical-align: middle; opacity: 1.0;}
+        table.text td a {display: block; text-decoration:none; font-size: 21}
+        table.text td a:hover {background: yellow}
+        table.basket {width: 100%; border-spacing: 10px;}
+        table.basket td {border: 1px solid gray; padding: 5px}
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/shop">Elite Clothes</a>
+        {% if current_user.is_authenticated %}
+            <p>
+                {% if current_user.name == "Админ" %}
+                    <a class="btn btn-primary" href="/addcat">Добавить категорию</a>
+                    <a class="btn btn-primary" href="/addprod">Добавить товар</a>
+                {% endif %}
+                {% if basket_len > 0 %}
+                    <a class="btn btn-outline-primary" href="/basket">Корзина  ({{basket_len}})</a>
+                {% else %}
+                    <a class="btn btn-outline-primary" href="/basket">Корзина  (Пусто)</a>
+                {% endif %}
+                <a class="btn btn-success" href="/logout">Выйти</a>
+            </p>
+        {% else %}
+            <p>
+                <a class="btn btn-primary" href="/register">Зарегестрироваться</a>
+                <a class="btn btn-primary" href="/login">Войти</a>
+            </p>
+        {% endif %}
+    </nav>
+</header>
+<!-- Begin page content -->
+<main role="main" class="container">
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

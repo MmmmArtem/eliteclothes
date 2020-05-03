@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+    <p>
+    <table class="basket" align="center">
+        <tr>
+            <td align="center" width="100"><b>№</b></td>
+            <td align="center"><b>Товар</b></td>
+            <td align="center"><b>Категория</b></td>
+            <td align="center" width="150"><b>Цена</b></td>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td align="center">{{product.index + 1}}</td>
+            <td align="left">
+                {{product.title}}
+                <img width="30" height="30" src="data:;base64,{{ product.image }}" alt="Фотография отсутствует"/>
+            </td>
+            <td align="center">{{product.category}}</td>
+            <td align="center">{{product.price}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td align="right"><b>Итого к оплате</b></td>
+            <td align="center"><b>{{full_price}} руб</b></td>
+        </tr>
+    </table>
+    </p>
+    <p align="center">
+        <a class="btn btn-primary" href="/payment">Оплатить</a>
+    </p>
+{% endblock %}

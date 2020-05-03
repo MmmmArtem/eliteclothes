@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3 align="center">Добавление нового товара</h3>
+    <form action="" method="post" enctype="multipart/form-data">
+        <p>
+            {{ form.prod_title.label }} <br>
+            {{ form.prod_title(class="form-control", type="prod_title") }} <br>
+        </p>
+        <p>
+            {{ form.prod_content.label }} <br>
+            {{ form.prod_content(class="form-control", type="prod_content") }} <br>
+        </p>
+        <p>
+            {{ form.price.label }} <br>
+            {{ form.price(class="form-control", type="price") }} <br>
+        </p>
+        <p><table width="100%" cellpadding="10" border="1" bordercolor = "LightGrey">
+            <tr>
+                <td width="50%" valign="middle">
+                    {{ form.cat.label }} <nb><nb>
+                    {{ form.cat(class="select", type="cat") }}
+                </td>
+                <td valign="middle">
+                    <input type="file" class="form-control-file" id="photo" name="image_file">
+                </td>
+            </tr>
+        </table></p>
+        <p>
+            {{ form.submit(class="btn btn-primary", type="submit") }}
+        </p>
+    </form>
+{% endblock %}
